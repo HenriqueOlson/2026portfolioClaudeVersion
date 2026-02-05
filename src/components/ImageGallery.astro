@@ -1,0 +1,156 @@
+---
+interface Props {
+  images: {
+    src: string;
+    alt: string;
+  }[];
+}
+
+const { images } = Astro.props;
+const galleryId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="image-gallery grid grid-cols-3 gap-2 my-8" data-gallery-id={galleryId}>
+  {images.map((image, index) => (
+    <button
+      type="button"
+      class="gallery-thumbnail rounded-lg overflow-hidden border border-transparent hover:border-muted-foreground transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.3)] cursor-pointer"
+      data-index={index}
+      data-gallery={galleryId}
+    >
+      <img
+        src={image.src}
+        alt={image.alt}
+        class="w-full h-full object-cover"
+      />
+    </button>
+  ))}
+</div>
+
+<!-- Lightbox Modal -->
+<div
+  id={`lightbox-${galleryId}`}
+  class="lightbox fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-sm"
+  data-gallery={galleryId}
+>
+  <!-- Close button -->
+  <button
+    type="button"
+    class="lightbox-close absolute top-4 right-4 z-10 p-2 text-white hover:text-primary transition-colors"
+    aria-label="Close"
+  >
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Previous button -->
+  <button
+    type="button"
+    class="lightbox-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white hover:text-primary transition-colors bg-black/50 rounded-full hover:bg-black/70"
+    aria-label="Previous image"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <!-- Next button -->
+  <button
+    type="button"
+    class="lightbox-next absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white hover:text-primary transition-colors bg-black/50 rounded-full hover:bg-black/70"
+    aria-label="Next image"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <!-- Image container -->
+  <div class="lightbox-image-container max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+    <img
+      class="lightbox-image max-w-full max-h-[90vh] object-contain rounded-lg"
+      src=""
+      alt=""
+    />
+  </div>
+
+  <!-- Image counter -->
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-proxima text-sm">
+    <span class="lightbox-current">1</span> / <span class="lightbox-total">{images.length}</span>
+  </div>
+</div>
+
+<script define:vars={{ galleryId, images }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector(`[data-gallery-id="${galleryId}"]`);
+    const lightbox = document.getElementById(`lightbox-${galleryId}`);
+
+    if (!gallery || !lightbox) return;
+
+    const thumbnails = gallery.querySelectorAll('.gallery-thumbnail');
+    const lightboxImage = lightbox.querySelector('.lightbox-image');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+    const currentSpan = lightbox.querySelector('.lightbox-current');
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateImage();
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function updateImage() {
+      const image = images[currentIndex];
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      currentSpan.textContent = currentIndex + 1;
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateImage();
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateImage();
+    }
+
+    // Event listeners
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => openLightbox(index));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', showPrev);
+    nextBtn.addEventListener('click', showNext);
+
+    // Close on backdrop click
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  });
+</script>

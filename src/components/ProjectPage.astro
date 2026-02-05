@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import Badge from './Badge.astro';
+import ProjectCard from './ProjectCard.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { Language } from '../i18n/translations';
+import { useTranslations, getLocalizedPath } from '../i18n/translations';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  lang: Language;
+}
+
+const { project, lang } = Astro.props;
+const { Content } = await project.render();
+const t = useTranslations(lang);
+const projectT = t('project');
+
+// Helper to get localized href
+const getHref = (path: string) => getLocalizedPath(path, lang);
+
+// Get all projects for featured section
+const allProjects = await getCollection('projects');
+const featuredProjects = project.data.featuredProjectSlugs
+  ? allProjects.filter((p) => project.data.featuredProjectSlugs?.includes(p.slug))
+  : allProjects.filter((p) => p.slug !== project.slug).slice(0, 2);
+---
+
+<BaseLayout title={`${project.data.title} - Henrique Olson`} description={project.data.cardDescription}>
+  <Header lang={lang} currentPath={`/${project.slug}`} />
+
+  <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back Button -->
+      <a href={`${getHref('/')}#portfolio`} class="back-button mb-8 font-proxima text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        {projectT.backToPortfolio}
+      </a>
+
+      <!-- Project Header -->
+      <div class="mb-12">
+        <h1 class="font-druk text-4xl sm:text-5xl md:text-6xl mb-2" style={`color: ${project.data.titleColor}`}>
+          {project.data.displayTitle}
+        </h1>
+        <p class="font-proxima text-xl mb-6" style={`color: ${project.data.titleColor}`}>
+          {project.data.client}
+        </p>
+      </div>
+
+      <!-- Overview -->
+      <div class="mb-12">
+        <h2 class="font-seravek text-2xl mb-4">{projectT.overview}</h2>
+        <p class="font-proxima text-lg leading-relaxed text-[#ffffff] mb-6">
+          {project.data.overviewDescription}
+        </p>
+
+        <!-- Tags -->
+        {project.data.tags && project.data.tags.length > 0 && (
+          <div class="mb-8">
+            <h3 class="font-proxima text-lg mb-3">{projectT.tags}</h3>
+            <div class="flex flex-wrap gap-2">
+              {project.data.tags.map((tag) => (
+                <Badge variant="gradient">{tag}</Badge>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Key Results -->
+        {project.data.keyResults && project.data.keyResults.length > 0 && (
+          <div class="mb-8">
+            <h3 class="font-druk text-3xl sm:text-4xl mb-4 text-primary">{projectT.keyResults}</h3>
+            <ul class="space-y-2">
+              {project.data.keyResults.map((result) => (
+                <li class="text-primary font-proxima text-lg">
+                  <mark>{result.metric}</mark> {result.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <!-- MDX Content -->
+      <div class="prose prose-invert prose-lg max-w-none mb-16">
+        <Content />
+      </div>
+
+      <!-- Send Message Button -->
+      <a
+        href="https://linkedin.com/in/henriqueolson"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="send-message-btn w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-proxima font-medium py-4 px-6 rounded-lg mb-16 transition-all hover:opacity-90"
+      >
+        {lang === 'en' ? 'Send me a message' : 'Envie-me uma mensagem'}
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+
+      <!-- Featured Projects -->
+      {featuredProjects.length > 0 && (
+        <section class="border-t border-border pt-16">
+          <h2 class="font-seravek text-2xl mb-8 text-center">
+            {lang === 'en' ? 'Featured Projects' : 'Projetos em Destaque'}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredProjects.map((featuredProject) => (
+              <ProjectCard
+                title={featuredProject.data.title}
+                displayTitle={featuredProject.data.displayTitle}
+                titleColor={featuredProject.data.titleColor}
+                client={featuredProject.data.client}
+                description={featuredProject.data.cardDescription}
+                badges={featuredProject.data.badges}
+                slug={featuredProject.slug}
+                image={featuredProject.data.cardImage}
+                passwordProtected={featuredProject.data.passwordProtected}
+                comingSoon={featuredProject.data.comingSoon}
+                lang={lang}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </main>
+
+  <Footer lang={lang} />
+</BaseLayout>

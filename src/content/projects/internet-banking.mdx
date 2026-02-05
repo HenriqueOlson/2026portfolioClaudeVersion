@@ -1,0 +1,157 @@
+---
+title: "Internet Banking"
+displayTitle: "INTERNET BANKING"
+titleColor: "#C084FC"
+client: "Vizir Software Studio"
+cardDescription: "Provide digital security to the communities living along the Amazonas riverside."
+overviewDescription: "A leading cosmetics company buys primary commodities from riverside sellers, who faced constant thefts due to cash transactions, while the internal finance sector lacked a personalized tool, causing complexity and insecurity. Our mission was to provide digital security to the communities living along the Amazonas riverside."
+badges: ["Web"]
+tags: ["User research", "Stakeholder interviews", "UX design", "UI design", "Financial inclusion"]
+cardImage: "/images/projects/dbf6c73325fa333eb2c8988f1675d914723486ac.png"
+passwordProtected: false
+comingSoon: false
+order: 3
+featuredProjectSlugs: ["questwealth", "new-account"]
+---
+
+import ImageGallery from '../../components/ImageGallery.astro';
+
+<img
+  src="/images/projects/bc28d0cad9d91268944a7fe1860d53b5ab8ea75b.png"
+  alt="Internet Banking Platform Overview"
+  class="rounded-lg w-full my-8"
+/>
+
+## Bringing Clarity Through Visual flows
+
+I joined this ongoing project to design an approval flow feature. After reviewing previous meeting recordings, I noticed the team lacked clarity on the requirements. To address this, I created visual information architecture flows based on available documentation and used them to validate requirements with key stakeholders. This brought clarity to the team and established a solid foundation for the solution.
+
+<img
+  src="/images/projects/2651b247a7d10d59542ba3838dfa49098606d2c7.png"
+  alt="Visual information architecture flows"
+  class="rounded-lg w-full my-8"
+/>
+
+## Connecting User Journeys in Complex Approval Workflows
+
+The goal was to enable clients to create personalized approval flows for different needs. The solution required four key elements: registering users, creating profiles with custom permissions, assigning users to profiles, and setting up approval flows with parameters.
+
+Understanding the personas was crucial. The complexity of connecting different journeys revealed an important challenge - three main personas with complementary roles needed to interact seamlessly. This meant the solution also required a notification system tailored to each persona's journey.
+
+### User Personas
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 my-8">
+  <div class="bg-card p-6 rounded-lg border border-border">
+    <div class="flex justify-center mb-4">
+      <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#51ADE1] to-[#AB80FF] p-1">
+        <div class="w-full h-full rounded-full bg-card flex items-center justify-center">
+          <svg class="w-10 h-10 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <h4 class="text-foreground text-center mb-1 font-druk text-lg">SYSTEM ADMIN</h4>
+    <p class="text-[#51ADE1] text-center text-sm mb-4">T.I. Person</p>
+    <p class="text-muted-foreground mb-6 leading-relaxed text-sm">Will create the approval flow accordingly the business needs, create new users and give them profile and permissions.</p>
+    <div class="relative pl-4 mb-2">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#51ADE1] to-[#AB80FF]"></div>
+      <h5 class="text-foreground font-druk text-sm mb-3">JOBS TO BE DONE</h5>
+    </div>
+    <ul class="space-y-2 text-muted-foreground text-sm">
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#51ADE1] mt-1.5"></span>Add users</li>
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#51ADE1] mt-1.5"></span>Create profiles with parameters</li>
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#51ADE1] mt-1.5"></span>Setup personalized approval flows</li>
+    </ul>
+  </div>
+
+  <div class="bg-card p-6 rounded-lg border border-border">
+    <div class="flex justify-center mb-4">
+      <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#7B9EFF] to-[#C084FC] p-1">
+        <div class="w-full h-full rounded-full bg-card flex items-center justify-center">
+          <svg class="w-10 h-10 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <h4 class="text-foreground text-center mb-1 font-druk text-lg">OPERATIONAL</h4>
+    <p class="text-[#7B9EFF] text-center text-sm mb-4">Person from financial sector</p>
+    <p class="text-muted-foreground mb-6 leading-relaxed text-sm">Include new payment requests, they can be cooperatives represented or financial that pay bills.</p>
+    <div class="relative pl-4 mb-2">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#7B9EFF] to-[#C084FC]"></div>
+      <h5 class="text-foreground font-druk text-sm mb-3">JOBS TO BE DONE</h5>
+    </div>
+    <ul class="space-y-2 text-muted-foreground text-sm">
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#7B9EFF] mt-1.5"></span>Create requests</li>
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#7B9EFF] mt-1.5"></span>Follow the request approval answer</li>
+    </ul>
+  </div>
+
+  <div class="bg-card p-6 rounded-lg border border-border">
+    <div class="flex justify-center mb-4">
+      <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#AB80FF] to-[#51ADE1] p-1">
+        <div class="w-full h-full rounded-full bg-card flex items-center justify-center">
+          <svg class="w-10 h-10 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <h4 class="text-foreground text-center mb-1 font-druk text-lg">APPROVER</h4>
+    <p class="text-[#AB80FF] text-center text-sm mb-4">Chief financial officer</p>
+    <p class="text-muted-foreground mb-6 leading-relaxed text-sm">People who have the permission to review requests, usually in high positions.</p>
+    <div class="relative pl-4 mb-2">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#AB80FF] to-[#51ADE1]"></div>
+      <h5 class="text-foreground font-druk text-sm mb-3">JOBS TO BE DONE</h5>
+    </div>
+    <ul class="space-y-2 text-muted-foreground text-sm">
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#AB80FF] mt-1.5"></span>Review requests, approving or denying</li>
+      <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#AB80FF] mt-1.5"></span>Write a motive in case of denial</li>
+    </ul>
+  </div>
+</div>
+
+A holistic view of a payment request journey with notification system.
+
+<img
+  src="/images/projects/aafe42314e41627917fdcf12bea2cdd009648a0a.png"
+  alt="Payment request journey with notification system"
+  class="rounded-lg w-full my-8"
+/>
+
+## User research
+
+To validate our assumptions, the Product Owner and I conducted usability testing with 9 operational users using prototypes. The research uncovered critical issues that needed resolution before launch.
+
+**Key findings:**
+
+Users expected payments and transfers to be separated, reflecting their daily workflow. We restructured the side navigation to accommodate this mental model.
+
+A major pain point emerged during request reviews—missing context made approvals difficult. We added a description field to the existing request feature to provide necessary details.
+
+Users instinctively looked to the center of the interface for their most frequent tasks, but no dashboard existed. As one participant noted: "It's always good to have a shortcut... it's important because it's a daily activity." This insight led us to design a centralized dashboard for core workflows.
+
+<img
+  src="/images/projects/6054483a3a5cfe4c11a2e6b8067bb1debe654928.png"
+  alt="Analyzing research data artifact"
+  class="rounded-lg w-full my-8"
+/>
+
+## Creating a payment approval flow
+
+Solution used by the System admin persona to create and manage multiple payment approval flows.
+
+<ImageGallery images={[
+  { src: "/images/projects/a8fd9466c95ad2929e489bfca855bf425e04e93e.png", alt: "Approval flow interface" },
+  { src: "/images/projects/c87b47fc9323086b75ab14cee815d1b757786555.png", alt: "User roles selection" },
+  { src: "/images/projects/5c32831b4fde728cfa821efdc22ac1168f087dd3.png", alt: "Multi-stage approval flow" }
+]} />
+
+Screen that centralize active payment approval flow.
+
+<img
+  src="/images/projects/439e917d93b8b0fe11f27fe72674a6972715966e.png"
+  alt="Centralized payment approval flow screen"
+  class="rounded-lg w-full my-8"
+/>

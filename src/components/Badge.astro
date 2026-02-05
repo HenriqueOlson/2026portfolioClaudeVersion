@@ -1,0 +1,19 @@
+---
+interface Props {
+  variant?: 'default' | 'primary' | 'soon' | 'gradient';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const variantClasses = {
+  default: 'badge',
+  primary: 'badge badge-primary',
+  soon: 'badge badge-soon',
+  gradient: 'badge-gradient',
+};
+---
+
+<span class={`${variantClasses[variant]} ${className}`}>
+  <slot />
+</span>

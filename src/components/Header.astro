@@ -1,0 +1,46 @@
+---
+import { LanguageSelector } from './LanguageSelector';
+import type { Language } from '../i18n/translations';
+import { useTranslations, getLocalizedPath } from '../i18n/translations';
+
+interface Props {
+  currentPath?: string;
+  lang?: Language;
+}
+
+const { currentPath = '/', lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const nav = t('nav');
+
+// Helper to get localized href
+const getHref = (path: string) => getLocalizedPath(path, lang);
+---
+
+<nav class="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <a href={getHref('/')} class="font-druk text-xl flex items-center gap-3">
+        <img
+          src="/images/projects/e0c3f71ef4111302e2b46fa3f9949d8e79eba41b.png"
+          alt="Henrique Olson logo"
+          class="w-14 h-10 object-cover"
+        />
+      </a>
+
+      <!-- Mobile Language Selector -->
+      <div class="md:hidden">
+        <LanguageSelector client:load currentLang={lang} currentPath={currentPath} />
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href={`${getHref('/')}#about`} class="nav-link font-proxima text-sm">{nav.about}</a>
+        <a href={`${getHref('/')}#portfolio`} class="nav-link font-proxima text-sm">{nav.portfolio}</a>
+        <a href={`${getHref('/')}#services`} class="nav-link font-proxima text-sm">{nav.services}</a>
+        <a href={`${getHref('/')}#contact`} class="nav-link font-proxima text-sm">{nav.contact}</a>
+        <LanguageSelector client:load currentLang={lang} currentPath={currentPath} />
+      </div>
+    </div>
+  </div>
+</nav>

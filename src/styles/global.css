@@ -1,0 +1,337 @@
+@import "tailwindcss";
+
+:root {
+  --font-size: 16px;
+
+  /* Custom color palette */
+  --color-dark-1: #131313;
+  --color-dark-2: #1d1d1d;
+  --color-dark-3: #282828;
+  --color-dark-4: #313131;
+  --color-dark-5: #414141;
+  --color-light-1: #c0c0c0;
+  --color-light-2: #e0e0e0;
+  --color-light-3: #ffffff;
+
+  /* Theme colors - Dark theme by default */
+  --background: var(--color-dark-1);
+  --foreground: var(--color-light-3);
+  --card: var(--color-dark-2);
+  --card-foreground: var(--color-light-3);
+  --popover: var(--color-dark-2);
+  --popover-foreground: var(--color-light-3);
+  --primary: #EBFC47;
+  --primary-foreground: var(--color-dark-1);
+  --secondary: transparent;
+  --secondary-foreground: var(--color-light-3);
+  --muted: var(--color-dark-4);
+  --muted-foreground: var(--color-light-1);
+  --accent: var(--color-dark-5);
+  --accent-foreground: var(--color-light-3);
+  --destructive: #ef4444;
+  --destructive-foreground: var(--color-light-3);
+  --border: var(--color-dark-4);
+  --input: var(--color-dark-3);
+  --input-background: var(--color-dark-3);
+  --ring: var(--color-light-1);
+  --radius: 0.75rem;
+
+  /* Project title colors */
+  --color-purple: #B794F6;
+  --color-blue: #60A5FA;
+  --color-green: #86EFAC;
+  --color-light-blue: #7DD3FC;
+  --color-lime: #EBFC47;
+  --color-violet: #C084FC;
+  --color-pink: #CC7CF7;
+
+  /* Gradient colors for buttons */
+  --gradient-start: #51ADE1;
+  --gradient-end: #AB80FF;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Font families */
+  .font-proxima {
+    font-family: 'Proxima Nova', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  .font-seravek {
+    font-family: 'Seravek', 'Source Sans Pro', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  .font-druk {
+    font-family: 'Druk Text', 'Oswald', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* Button base styles */
+  .btn {
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  /* Secondary button with gradient border */
+  .btn-secondary,
+  .gradient-border-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--background), var(--background)), linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover,
+  .gradient-border-btn:hover {
+    background-image: linear-gradient(var(--muted), var(--muted)), linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  }
+
+  /* Badge styles */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    background-color: transparent;
+    color: var(--foreground);
+  }
+
+  .badge-primary {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .badge-soon {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+  }
+
+  /* Gradient border badge (for About section) */
+  .badge-gradient {
+    background: transparent;
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--background), var(--background)), linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    font-size: 14px;
+    color: var(--foreground);
+  }
+
+  /* Card styles */
+  .card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--muted-foreground);
+    transform: scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Navigation */
+  .nav-link {
+    color: var(--foreground);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--primary);
+  }
+
+  /* Section backgrounds */
+  .bg-section {
+    background-color: var(--card);
+  }
+
+  /* Availability badge */
+  .availability-badge {
+    background: rgba(235, 252, 71, 0.15);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 9999px;
+    padding: 4px 10px;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  .availability-badge:hover {
+    background: rgba(235, 252, 71, 0.25);
+  }
+
+  /* Back button hover style */
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--foreground);
+  }
+
+  .back-button:hover {
+    background: rgba(235, 252, 71, 0.15);
+    color: var(--primary);
+  }
+
+  .back-button:hover svg {
+    color: var(--primary);
+  }
+
+  /* MDX prose styling */
+  .prose h2 {
+    font-family: 'Seravek', 'Source Sans Pro', 'Open Sans', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
+
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+
+  .prose h3 {
+    font-family: 'Seravek', 'Source Sans Pro', 'Open Sans', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .prose p {
+    font-family: 'Proxima Nova', 'Montserrat', 'Open Sans', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+    color: #ededed;
+  }
+
+  .prose ul {
+    margin-bottom: 1.5rem;
+  }
+
+  .prose li {
+    font-family: 'Proxima Nova', 'Montserrat', 'Open Sans', sans-serif;
+    font-size: 1.125rem;
+    color: #ededed;
+  }
+
+  .prose img {
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+
+  .prose a {
+    color: var(--primary);
+  }
+
+  .prose a:hover {
+    text-decoration: underline;
+  }
+
+  .prose iframe {
+    border-radius: 0.5rem;
+  }
+}
+
+/* Mark/highlight for key results */
+mark {
+  background-color: transparent;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  h1.font-druk {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .font-proxima,
+  .font-seravek,
+  .font-druk {
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}

@@ -1,0 +1,26 @@
+---
+import type { Language } from '../i18n/translations';
+import { useTranslations } from '../i18n/translations';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const footer = t('footer');
+---
+
+<footer class="py-16 px-4 sm:px-6 lg:px-8 bg-background">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="font-seravek text-xl mb-2 font-bold text-lg">
+      Henrique Olson
+    </div>
+    <p class="text-muted-foreground font-proxima text-sm mb-6">
+      Strategic Consulting • Digital Transformation • Business Growth
+    </p>
+    <p class="text-xs text-muted-foreground font-proxima">
+      {footer.rights}
+    </p>
+  </div>
+</footer>

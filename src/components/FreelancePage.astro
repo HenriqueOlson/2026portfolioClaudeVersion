@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import type { Language } from '../i18n/translations';
+import { useTranslations, getLocalizedPath } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const freelance = t('freelance');
+const services = t('services');
+
+// Helper to get localized href
+const getHref = (path: string) => getLocalizedPath(path, lang);
+
+const servicesList = [
+  {
+    title: services.uxDesign.title,
+    description: services.uxDesign.description,
+    bullets: services.uxDesign.bullets,
+    icon: "eye"
+  },
+  {
+    title: services.uiDesign.title,
+    description: services.uiDesign.description,
+    bullets: services.uiDesign.bullets,
+    icon: "palette"
+  },
+  {
+    title: services.uxResearch.title,
+    description: services.uxResearch.description,
+    bullets: services.uxResearch.bullets,
+    icon: "search"
+  },
+  {
+    title: services.productDiscovery.title,
+    description: services.productDiscovery.description,
+    bullets: services.productDiscovery.bullets,
+    icon: "compass"
+  },
+  {
+    title: services.userTesting.title,
+    description: services.userTesting.description,
+    bullets: services.userTesting.bullets,
+    icon: "test-tube"
+  },
+  {
+    title: services.productStrategy.title,
+    description: services.productStrategy.description,
+    bullets: services.productStrategy.bullets,
+    icon: "rocket"
+  }
+];
+
+const processSteps = lang === 'en' ? [
+  { num: 1, title: 'Discovery', desc: 'Understanding your goals, users, and constraints' },
+  { num: 2, title: 'Strategy', desc: 'Defining the approach and success metrics' },
+  { num: 3, title: 'Design', desc: 'Creating and iterating on solutions' },
+  { num: 4, title: 'Delivery', desc: 'Handoff and implementation support' },
+] : [
+  { num: 1, title: 'Discovery', desc: 'Entendendo seus objetivos, usuários e restrições' },
+  { num: 2, title: 'Estratégia', desc: 'Definindo a abordagem e métricas de sucesso' },
+  { num: 3, title: 'Design', desc: 'Criando e iterando em soluções' },
+  { num: 4, title: 'Entrega', desc: 'Handoff e suporte à implementação' },
+];
+---
+
+<BaseLayout title={lang === 'en' ? 'Freelance Services - Henrique Olson' : 'Serviços Freelance - Henrique Olson'}>
+  <Header lang={lang} currentPath={lang === 'en' ? '/freelance' : '/pt/freelance'} />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <a href={getHref('/')} class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 font-proxima text-sm transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        {freelance.backToHome}
+      </a>
+      <h1 class="font-druk text-4xl sm:text-5xl md:text-6xl mb-6">{freelance.title}</h1>
+      <p class="font-seravek text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+        {freelance.subtitle}
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {servicesList.map((service) => (
+          <div class="card p-8">
+            <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              {service.icon === 'eye' && (
+                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              )}
+              {service.icon === 'palette' && (
+                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+              )}
+              {service.icon === 'search' && (
+                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              )}
+              {service.icon === 'compass' && (
+                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+              )}
+              {service.icon === 'test-tube' && (
+                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              )}
+              {service.icon === 'rocket' && (
+                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              )}
+            </div>
+            <h3 class="font-proxima text-xl mb-4">{service.title}</h3>
+            <p class="font-seravek text-muted-foreground text-sm mb-6">{service.description}</p>
+            <ul class="space-y-2">
+              {service.bullets.map((bullet) => (
+                <li class="flex items-center gap-2 text-sm text-muted-foreground font-seravek">
+                  <div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-section">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-seravek text-3xl sm:text-4xl mb-12 text-center">
+        {lang === 'en' ? 'How I Work' : 'Como Eu Trabalho'}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {processSteps.map((step) => (
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full bg-primary text-primary-foreground mx-auto mb-4 flex items-center justify-center font-druk text-2xl">{step.num}</div>
+            <h3 class="font-proxima text-lg mb-2">{step.title}</h3>
+            <p class="font-seravek text-sm text-muted-foreground">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="font-seravek text-3xl sm:text-4xl mb-6">
+        {lang === 'en' ? 'Ready to Start a Project?' : 'Pronto para Iniciar um Projeto?'}
+      </h2>
+      <p class="font-proxima text-muted-foreground mb-8">
+        {lang === 'en'
+          ? "Let's collaborate to transform your ideas into exceptional digital experiences."
+          : "Vamos colaborar para transformar suas ideias em experiências digitais excepcionais."}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="btn-primary font-proxima inline-flex items-center gap-2">
+          {lang === 'en' ? "Let's Connect on LinkedIn" : "Vamos Conectar no LinkedIn"}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <a href={`${getHref('/')}#portfolio`} class="btn-secondary font-proxima">
+          {lang === 'en' ? 'View My Work' : 'Ver Meu Trabalho'}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang={lang} />
+</BaseLayout>

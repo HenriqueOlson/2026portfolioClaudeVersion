@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import ProjectCard from './ProjectCard.astro';
+import Badge from './Badge.astro';
+import { getCollection } from 'astro:content';
+import type { Language } from '../i18n/translations';
+import { useTranslations, getLocalizedPath } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const hero = t('hero');
+const about = t('about');
+const portfolio = t('portfolio');
+const services = t('services');
+const testimonials = t('testimonials');
+const contact = t('contact');
+
+// Helper to get localized href
+const getHref = (path: string) => getLocalizedPath(path, lang);
+
+// Get all projects and sort by order
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout>
+  <Header lang={lang} currentPath={lang === 'en' ? '/' : '/pt/'} />
+
+  <!-- Hero Section -->
+  <section class="h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
+    <div class="text-center max-w-4xl mx-auto">
+      <span class="availability-badge inline-block mb-8 font-proxima text-sm">
+        {hero.availability}
+      </span>
+      <h1 class="font-druk text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6">
+        {hero.name}
+      </h1>
+      <p class="font-seravek text-lg sm:text-xl text-muted-foreground mb-8">
+        {hero.tagline}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#services" class="btn-primary font-proxima inline-flex items-center gap-2">
+          {hero.freelanceServices}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <a href="#portfolio" class="btn-secondary font-proxima">
+          {hero.viewPortfolio}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 bg-section">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="font-seravek text-3xl sm:text-4xl mb-6">{about.title}</h2>
+          <p class="font-proxima text-lg leading-relaxed mb-6 text-muted-foreground">
+            {about.paragraph1}
+          </p>
+          <p class="font-proxima text-lg leading-relaxed mb-8 text-muted-foreground">
+            {about.paragraph2}
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <Badge variant="gradient">{about.badge1}</Badge>
+            <Badge variant="gradient">{about.badge2}</Badge>
+            <Badge variant="gradient">{about.badge3}</Badge>
+            <Badge variant="gradient">{about.badge4}</Badge>
+            <Badge variant="gradient">{about.badge5}</Badge>
+            <Badge variant="gradient">{about.badge6}</Badge>
+          </div>
+        </div>
+        <div class="flex justify-center lg:justify-end">
+          <img
+            src="/images/projects/4bc393f70f4b66d7696b1aac6c4705f76410178e.png"
+            alt="Henrique Olson"
+            class="w-full max-w-md rounded-lg grayscale"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{portfolio.title}</h2>
+        <p class="font-proxima text-muted-foreground max-w-2xl mx-auto text-[18px]">
+          {portfolio.description}
+          {' '}{portfolio.passwordProtected} <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{portfolio.reachOut}</a>
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            displayTitle={project.data.displayTitle}
+            titleColor={project.data.titleColor}
+            client={project.data.client}
+            description={project.data.cardDescription}
+            badges={project.data.badges}
+            slug={project.slug}
+            image={project.data.cardImage}
+            passwordProtected={project.data.passwordProtected}
+            comingSoon={project.data.comingSoon}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-24 px-4 sm:px-6 lg:px-8 bg-section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{services.title}</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- UX Design -->
+        <div class="card p-8 flex flex-col">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+            <!-- Eye icon -->
+            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+            </svg>
+          </div>
+          <h3 class="font-proxima text-[24px] font-semibold mb-4">{services.uxDesign.title}</h3>
+          <p class="font-seravek text-muted-foreground text-[18px] leading-relaxed">
+            {services.uxDesign.description}
+          </p>
+        </div>
+
+        <!-- UI & Interaction Design -->
+        <div class="card p-8 flex flex-col">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+            <!-- Creative/Design icon -->
+            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+          </div>
+          <h3 class="font-proxima text-[24px] font-semibold mb-4">{services.uiDesign.title}</h3>
+          <p class="font-seravek text-muted-foreground text-[18px] leading-relaxed">
+            {services.uiDesign.description}
+          </p>
+        </div>
+
+        <!-- Ready to Start -->
+        <div class="card p-8 flex flex-col">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+            <!-- Rocket/Check icon -->
+            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4" />
+              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02" />
+            </svg>
+          </div>
+          <h3 class="font-proxima text-[24px] font-semibold mb-4">{lang === 'en' ? 'Ready to Start?' : 'Pronto para Começar?'}</h3>
+          <p class="font-seravek text-muted-foreground text-[18px] leading-relaxed mb-6">
+            {lang === 'en'
+              ? "Let's collaborate to transform your ideas into exceptional digital experiences. I'm here to help you create user-centered solutions that drive real business results."
+              : "Vamos colaborar para transformar suas ideias em experiências digitais excepcionais. Estou aqui para ajudá-lo a criar soluções centradas no usuário que geram resultados reais de negócios."}
+          </p>
+          <div class="mt-auto">
+            <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="btn-primary font-proxima text-sm w-full block text-center">
+              {lang === 'en' ? "Let's Work Together! Send a message." : "Vamos Trabalhar Juntos! Envie uma mensagem."}
+            </a>
+            <a href={getHref('/freelance')} class="btn-secondary font-proxima text-sm w-full block text-center mt-3">
+              {lang === 'en' ? 'Learn more about services' : 'Saiba mais sobre os serviços'}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{testimonials.title}</h2>
+        <p class="font-proxima text-muted-foreground text-[18px]">
+          {testimonials.subtitle}
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {testimonials.items.map((item) => (
+          <div class="card p-6">
+            <div class="text-primary text-[32px] mb-2">"</div>
+            <p class="font-seravek text-[16px] text-muted-foreground mb-4">
+              {item.text}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center mt-8 text-primary font-proxima text-[18px]">
+        <a href="https://www.linkedin.com/in/henriqueolson/details/recommendations/" target="_blank" rel="noopener noreferrer" class="hover:underline">
+          {testimonials.source}
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{contact.title}</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="group">
+          <div class="w-16 h-16 rounded-full border border-border mx-auto mb-4 flex items-center justify-center group-hover:border-primary group-hover:bg-[rgba(235,252,71,0.15)] transition-all">
+            <svg class="w-8 h-8 text-foreground group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <h3 class="font-proxima text-lg mb-1 group-hover:text-primary transition-colors">LinkedIn</h3>
+          <p class="font-seravek text-sm text-muted-foreground group-hover:text-primary transition-colors">linkedin.com/in/henriqueolson</p>
+        </a>
+        <a href="https://instagram.com/motion.byhod" target="_blank" rel="noopener noreferrer" class="group">
+          <div class="w-16 h-16 rounded-full border border-border mx-auto mb-4 flex items-center justify-center group-hover:border-primary group-hover:bg-[rgba(235,252,71,0.15)] transition-all">
+            <svg class="w-8 h-8 text-foreground group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3 class="font-proxima text-lg mb-1 group-hover:text-primary transition-colors">Instagram</h3>
+          <p class="font-seravek text-sm text-muted-foreground group-hover:text-primary transition-colors">@motion.byhod</p>
+        </a>
+        <div class="group">
+          <div class="w-16 h-16 rounded-full border border-border mx-auto mb-4 flex items-center justify-center group-hover:border-primary group-hover:bg-[rgba(235,252,71,0.15)] transition-all">
+            <svg class="w-8 h-8 text-foreground group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="font-proxima text-lg mb-1 group-hover:text-primary transition-colors">{lang === 'en' ? 'Location' : 'Localização'}</h3>
+          <p class="font-seravek text-sm text-muted-foreground group-hover:text-primary transition-colors">{lang === 'en' ? 'Brazil - Remote' : 'Brasil - Remoto'}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang={lang} />
+</BaseLayout>

@@ -1,0 +1,100 @@
+---
+title: "Questwealth"
+displayTitle: "QUESTWEALTH"
+titleColor: "#51ADE1"
+client: "Questrade Financial Group"
+cardDescription: "Led 7% increase in assets."
+overviewDescription: "Questwealth Portfolios is a managed portfolio product for clients who prefer not to manage investments directly. My challenge was design a mobile native onboarding following the existing web system, what resulted in restricted requirements as keep back-end logic and business rules."
+badges: ["Mobile"]
+tags: ["User testing", "UX Research", "Onboarding Optimization"]
+cardImage: "/images/projects/632803f08ce56c2ed18db6568ceee90241db0534.png"
+passwordProtected: false
+comingSoon: false
+order: 2
+keyResults:
+  - metric: "2150"
+    description: "new accounts opened."
+  - metric: "7%"
+    description: "of increase over the Assets Under Management."
+  - metric: "$126M"
+    description: "boosted in 3 months."
+featuredProjectSlugs: ["profile", "internet-banking"]
+---
+
+## Deep Investigation Approach
+
+Following the requirements alone wouldn't result in a good native experience, mainly due to the web mental model. I investigated the Portfolio Questionnaire's current system rules and logic, reviewed the existing design, and engaged with teams to identify improvement opportunities.
+
+<mark>I've identified opportunities to enhance the user experience, which has directly contributed to achieving positive results.</mark>
+
+## Enhancing 'Conflicts'
+
+A conflict happens if someone chooses to get maximum returns in a short time period for example. The web version had a disconnected solution to warn, explain and help users fix a conflict, going back and forth into the screens was a huge pain point. What also generate more expenses for portfolio managers team.
+
+<img
+  src="/images/projects/8add6a3a9bbdf1b01f9c0d556db8c6aaf801775a.png"
+  alt="Onboarding flow optimization and user journey mapping"
+  class="rounded-lg w-full my-8"
+/>
+
+To reach a solid solution, many brainstorm sessions were necessary to make sure would work.
+
+<img
+  src="/images/projects/41a44649da9ef6935e499a7ac79b9ac5692419bd.png"
+  alt="UX design process and brainstorming sessions"
+  class="rounded-lg w-full my-8"
+/>
+
+The solution proposed was tested and had an excellent success rate among 10 participants.
+
+Conflict Resolution: When selecting an answer that creates a conflict, a bottom sheet component is displayed to inform the user and provide flexibility to resolve the conflict or continue. When resolving conflicts, a full modal displays single or multiple conflicts and provides a way to change either questions that are conflicting, centralizing the resolution and avoiding back-and-forth navigation between pages to change the answers.
+
+<img
+  src="/images/projects/2e6e91079f52b8e9104b3ad6b27a427f8dc43443.png"
+  alt="Financial portfolio management dashboard results"
+  class="rounded-lg w-full my-8"
+/>
+
+## Reducing 'Cognitive Load'
+
+The following questions present opportunities to reduce user input and streamline the flow: Net Worth & Investment holdings.
+
+<div class="flex flex-col lg:flex-row gap-6 items-start my-8">
+  <div class="w-full lg:w-1/2">
+    <img
+      src="/images/projects/9498f790fdcc4b3e126a128f56c0cdc44ec6487c.png"
+      alt="Net Worth input optimization"
+      class="rounded-lg w-full"
+    />
+  </div>
+  <div class="w-full lg:w-1/2">
+    <h3 class="text-primary font-seravek text-xl mb-2">Net Worth</h3>
+    <p class="text-lg">From 13 mandatory inputs, I've created a solution by working the copy, adjusting design components, and modifying interactions, all while adhering to compliance rules.</p>
+  </div>
+</div>
+
+<div class="flex flex-col lg:flex-row-reverse gap-6 items-start my-8">
+  <div class="w-full lg:w-1/2">
+    <img
+      src="/images/projects/a39409ca3e2f641079272059d288777b2b0424f6.png"
+      alt="Investment Holdings optimization"
+      class="rounded-lg w-full"
+    />
+  </div>
+  <div class="w-full lg:w-1/2">
+    <h3 class="text-primary font-seravek text-xl mb-2">Investment Holdings</h3>
+    <p class="text-lg">Users had to read the options, most of which were not common due their investment knowledge.</p>
+  </div>
+</div>
+
+**Design solution for both Net worth and Investment holdings questions:**
+
+**Net Worth:** The solution consists of prioritizing the 3 main pieces of information [Liquid, Fixed Assets, and Liabilities] by displaying input fields for each to enable direct interaction. Then, add a calculator at a second navigation level for other required fields [Cash, Stocks, Residence, Vehicle, Loans…]
+
+**Investment Holdings:** It was identified in the investigation findings that the majority of users do not have existing investments; therefore, they are not familiar with specific terminology. The solution to reduce cognitive load was to rewrite the question, initially asking Yes or No. Then, only if Yes is selected, they would be asked about [GICs, Stocks, ETFs…]
+
+<img
+  src="/images/projects/f3e11d5c36d64d59fde5f9623db7848a7e26ba1c.png"
+  alt="Final implementation results"
+  class="rounded-lg w-full my-8"
+/>
