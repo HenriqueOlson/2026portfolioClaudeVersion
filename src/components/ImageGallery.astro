@@ -8,9 +8,10 @@ interface Props {
 
 const { images } = Astro.props;
 const galleryId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
+const isSingleImage = images.length === 1;
 ---
 
-<div class="image-gallery grid grid-cols-3 gap-2 my-8" data-gallery-id={galleryId}>
+<div class={`image-gallery ${isSingleImage ? 'block' : 'grid grid-cols-3 gap-2'} my-8`} data-gallery-id={galleryId}>
   {images.map((image, index) => (
     <button
       type="button"
@@ -44,27 +45,31 @@ const galleryId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
     </svg>
   </button>
 
-  <!-- Previous button -->
-  <button
-    type="button"
-    class="lightbox-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white hover:text-primary transition-colors bg-black/50 rounded-full hover:bg-black/70"
-    aria-label="Previous image"
-  >
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-  </button>
+  {!isSingleImage && (
+    <>
+      <!-- Previous button -->
+      <button
+        type="button"
+        class="lightbox-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white hover:text-primary transition-colors bg-black/50 rounded-full hover:bg-black/70"
+        aria-label="Previous image"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
 
-  <!-- Next button -->
-  <button
-    type="button"
-    class="lightbox-next absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white hover:text-primary transition-colors bg-black/50 rounded-full hover:bg-black/70"
-    aria-label="Next image"
-  >
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-    </svg>
-  </button>
+      <!-- Next button -->
+      <button
+        type="button"
+        class="lightbox-next absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 text-white hover:text-primary transition-colors bg-black/50 rounded-full hover:bg-black/70"
+        aria-label="Next image"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </>
+  )}
 
   <!-- Image container -->
   <div class="lightbox-image-container max-w-[90vw] max-h-[90vh] flex items-center justify-center">
@@ -75,10 +80,12 @@ const galleryId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
     />
   </div>
 
-  <!-- Image counter -->
-  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-proxima text-sm">
-    <span class="lightbox-current">1</span> / <span class="lightbox-total">{images.length}</span>
-  </div>
+  {!isSingleImage && (
+    <!-- Image counter -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white font-proxima text-sm">
+      <span class="lightbox-current">1</span> / <span class="lightbox-total">{images.length}</span>
+    </div>
+  )}
 </div>
 
 <script define:vars={{ galleryId, images }}>

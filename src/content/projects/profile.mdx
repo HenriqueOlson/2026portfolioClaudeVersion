@@ -21,6 +21,8 @@ keyResults:
 featuredProjectSlugs: ["questwealth", "new-account"]
 ---
 
+import ImageGallery from '../../components/ImageGallery.astro';
+
 ## Challenge
 
 My task was to design a mobile-native feature for profile using the existing legacy system as a reference. The Profile feature exists independently on Questrade's platforms, but once a year, customers are required to update their information, which follows this structure:
@@ -49,10 +51,8 @@ Information architecture artifacts used during the project to validate logic and
 
 One of the most complex questions to design was the pairing of Residential Address and Tax Residency, which had to be tied together to meet compliance requirements. When a client updates either information, they're prompted to update the corresponding one immediately. The edit only saves successfully if both fields match.
 
-<img
-  src="/images/projects/75b54bf3a56429434e5c132b84b76fe24fc0d15b.png"
-  alt="Three levels of navigation for Residential Address and Tax Residency flow"
-  class="rounded-lg w-full my-8"
-/>
+<ImageGallery images={[
+  { src: "/images/projects/75b54bf3a56429434e5c132b84b76fe24fc0d15b.png", alt: "Three levels of navigation for Residential Address and Tax Residency flow" }
+]} />
 
 Three levels of navigation were necessary to ensure clear logic flow. This included pre-selecting the country in the residential address field when users changed their tax residency, or requesting specific tax information based on a previously selected country.
