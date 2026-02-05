@@ -118,7 +118,7 @@ export const translations = {
       getInTouch: 'Get in Touch',
     },
     footer: {
-      rights: '© 2025 Henrique Olson. All rights reserved.',
+      rights: '© 2026 Henrique Olson. All rights reserved.',
       madeWith: 'Made with',
       in: 'in Toronto',
     },
@@ -258,7 +258,7 @@ export const translations = {
       getInTouch: 'Entre em Contato',
     },
     footer: {
-      rights: '© 2025 Henrique Olson. Todos os direitos reservados.',
+      rights: '© 2026 Henrique Olson. Todos os direitos reservados.',
       madeWith: 'Feito com',
       in: 'em Toronto',
     },

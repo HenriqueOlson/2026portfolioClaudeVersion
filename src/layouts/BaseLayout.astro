@@ -27,6 +27,68 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQVGQT6N4H"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SQVGQT6N4H', {
+        page_path: window.location.pathname,
+        send_page_view: true
+      });
+
+      // Track all link clicks
+      document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (link) {
+          gtag('event', 'click', {
+            event_category: 'link',
+            event_label: link.href || link.textContent,
+            value: 1
+          });
+        }
+      });
+
+      // Track all button clicks
+      document.addEventListener('click', function(e) {
+        const button = e.target.closest('button');
+        if (button) {
+          gtag('event', 'click', {
+            event_category: 'button',
+            event_label: button.textContent || button.className,
+            value: 1
+          });
+        }
+      });
+
+      // Track form submissions
+      document.addEventListener('submit', function(e) {
+        gtag('event', 'form_submit', {
+          event_category: 'form',
+          event_label: e.target.action || 'form_submission',
+          value: 1
+        });
+      });
+
+      // Track scroll depth
+      let scrollDepths = [25, 50, 75, 100];
+      let scrollDepthsTriggered = [];
+      window.addEventListener('scroll', function() {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        scrollDepths.forEach(function(depth) {
+          if (scrollPercent >= depth && !scrollDepthsTriggered.includes(depth)) {
+            scrollDepthsTriggered.push(depth);
+            gtag('event', 'scroll_depth', {
+              event_category: 'engagement',
+              event_label: depth + '%',
+              value: depth
+            });
+          }
+        });
+      });
+    </script>
+
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
