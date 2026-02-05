@@ -1,11 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <defs>
     <linearGradient id="hodGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#D4D4D4"/>
-      <stop offset="50%" style="stop-color:#6B6B6B"/>
-      <stop offset="100%" style="stop-color:#3D3D3D"/>
+      <stop offset="0%" stop-color="#D4D4D4"/>
+      <stop offset="50%" stop-color="#6B6B6B"/>
+      <stop offset="100%" stop-color="#3D3D3D"/>
     </linearGradient>
   </defs>
   <rect width="128" height="128" fill="#1A1A1A" rx="16"/>
-  <text x="64" y="82" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="48" text-anchor="middle" fill="url(#hodGradient)">HOD</text>
+  <!-- H letter -->
+  <path d="M16 36 L16 92 L24 92 L24 68 L40 68 L40 92 L48 92 L48 36 L40 36 L40 60 L24 60 L24 36 Z" fill="#D4D4D4"/>
+  <!-- O letter -->
+  <path d="M56 36 C50 36 50 42 50 48 L50 80 C50 86 50 92 56 92 L72 92 C78 92 78 86 78 80 L78 48 C78 42 78 36 72 36 Z M58 48 C58 44 58 44 60 44 L68 44 C70 44 70 44 70 48 L70 80 C70 84 70 84 68 84 L60 84 C58 84 58 84 58 80 Z" fill="#6B6B6B"/>
+  <!-- D letter -->
+  <path d="M84 36 L84 92 L104 92 C112 92 112 86 112 80 L112 48 C112 42 112 36 104 36 Z M92 44 L100 44 C104 44 104 46 104 48 L104 80 C104 82 104 84 100 84 L92 84 Z" fill="#3D3D3D"/>
 </svg>
