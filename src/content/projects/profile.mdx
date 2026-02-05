@@ -4,7 +4,7 @@ displayTitle: "PROFILE"
 titleColor: "#5684BD"
 client: "Questrade Financial Group"
 cardDescription: "Designing a compliant complex system that boosted engineer velocity."
-overviewDescription: "Questrade is one of the fastest growing online brokerages in Canada, and to enhance their systems and infrastructure, my Product Designer challenges involved creating a single unified profile system. Despite numerous constraints and legacy dependencies, I transformed a complex 11-screen web account management system into a streamlined single-flow solution for mobile."
+overviewDescription: "Financial institutions in Canada are legally required to keep client information up to date. To meet this compliance requirement, Questrade asked customers to update their profiles annually through a legacy system that was undergoing modernization."
 badges: ["Mobile"]
 tags: ["Mobile", "Compliance", "KYC", "Web"]
 cardImage: "/images/projects/6f27ae44f84803a52fb496858679ae4ece2f895d.png"
@@ -12,34 +12,34 @@ passwordProtected: false
 comingSoon: false
 order: 5
 keyResults:
-  - metric: "Simplified"
-    description: "11 web screens into 1 flow."
-  - metric: "Boosted"
-    description: "engineer velocity."
-  - metric: "Reduced"
-    description: "development tickets and iterations."
+  - metric: "Boosted engineer velocity"
+    description: "for Questmobile's App Onboarding revamp by leveraging the Profile component's pre-built business rules, back-end logic, and UI variations."
+  - metric: "Streamlined Annual Profile Review"
+    description: "implementation for App and Web, resolving account access issues for Questmobile App users needing to complete the review."
+  - metric: "Developed 2 new reliable documentations"
+    description: "for Profile and Annual Review systems."
 featuredProjectSlugs: ["questwealth", "new-account"]
 ---
 
-## The Challenge
+## Challenge
 
-Profile redesign was the first big challenge at Questrade. The current system was complex, with 11 screens and multiple user flows. The goal was to simplify the system and create a unified profile experience across web and mobile platforms.
+My task was to design a mobile-native feature for profile using the existing legacy system as a reference. The Profile feature exists independently on Questrade's platforms, but once a year, customers are required to update their information, which follows this structure:
 
 <img
   src="/images/projects/231a17237970efc393f3928e45066a39aa645162.png"
-  alt="Profile system complexity analysis"
+  alt="Profile update flow structure: 1. Warning - Entry point, 2. Review all data - Wizard, 3. Edit information - Profile feature"
   class="rounded-lg w-full my-8"
 />
 
-The challenge was to create a mobile-first experience that would simplify the account management process while maintaining compliance with financial regulations and KYC (Know Your Customer) requirements.
+While mapping the flow of all 17 profile questions [part 3], I discovered that several cases from the legacy were missing in the modernized web version, and lacking a documentation to reference.
 
-## Design Actions
+## Action
 
-I focused on understanding the existing system architecture and identifying opportunities to consolidate flows. Working closely with engineering and compliance teams, I mapped out the critical user journeys and regulatory requirements.
+I drove collaboration with the back-end team to understand the logic, validating my findings from testing the legacy system in order to create documentation to be used as a source. I also coordinated iterations for the modernized web version and handed off the mobile feature with the respective teams, ensuring an aligned experience that met legal and compliance requirements.
 
 <img
   src="/images/projects/c48e85cb22d3007b5f2b8836abd027c8321e07e2.png"
-  alt="Professional user interface"
+  alt="Information architecture artifacts used during the project to validate logic and business rules"
   class="rounded-lg w-full my-8"
 />
 
@@ -47,12 +47,12 @@ Information architecture artifacts used during the project to validate logic and
 
 ## Solving Complexity
 
-The key insight was that users don't think in terms of "accounts" and "profiles" - they think in terms of tasks they want to accomplish. By restructuring the information architecture around user goals rather than system structure, we were able to dramatically simplify the experience.
+One of the most complex questions to design was the pairing of Residential Address and Tax Residency, which had to be tied together to meet compliance requirements. When a client updates either information, they're prompted to update the corresponding one immediately. The edit only saves successfully if both fields match.
 
 <img
   src="/images/projects/75b54bf3a56429434e5c132b84b76fe24fc0d15b.png"
-  alt="Simplified profile design solution"
+  alt="Three levels of navigation for Residential Address and Tax Residency flow"
   class="rounded-lg w-full my-8"
 />
 
-The new design consolidated multiple screens into a single, scrollable profile view with contextual editing. This approach reduced cognitive load and made it easier for users to find and update their information.
+Three levels of navigation were necessary to ensure clear logic flow. This included pre-selecting the country in the residential address field when users changed their tax residency, or requesting specific tax information based on a previously selected country.
