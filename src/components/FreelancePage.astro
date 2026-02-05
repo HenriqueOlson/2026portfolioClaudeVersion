@@ -11,7 +11,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const freelance = t('freelance');
 const services = t('services');
 
 // Helper to get localized href
@@ -56,41 +55,284 @@ const servicesList = [
   }
 ];
 
-const processSteps = lang === 'en' ? [
-  { num: 1, title: 'Discovery', desc: 'Understanding your goals, users, and constraints' },
-  { num: 2, title: 'Strategy', desc: 'Defining the approach and success metrics' },
-  { num: 3, title: 'Design', desc: 'Creating and iterating on solutions' },
-  { num: 4, title: 'Delivery', desc: 'Handoff and implementation support' },
-] : [
-  { num: 1, title: 'Discovery', desc: 'Entendendo seus objetivos, usuários e restrições' },
-  { num: 2, title: 'Estratégia', desc: 'Definindo a abordagem e métricas de sucesso' },
-  { num: 3, title: 'Design', desc: 'Criando e iterando em soluções' },
-  { num: 4, title: 'Entrega', desc: 'Handoff e suporte à implementação' },
-];
+// Content based on language
+const content = lang === 'en' ? {
+  title: 'DESIGN SERVICES',
+  section1: {
+    text1: "Fast-paced startups ",
+    highlight1: "can't afford generic design",
+    text2: ", yet that's exactly what they're getting ",
+    highlight2: "costing them",
+    text3: " users, revenue, and competitive edge."
+  },
+  section2: {
+    text1: "I design strategic, differentiated digital products that convert ",
+    highlight1: "bringing clarity to chaos",
+    text2: " and turning your fast-paced execution into a competitive advantage."
+  },
+  section3: {
+    text1: "Collaborating directly with your team to align on what matters: the ",
+    highlight1: "problem",
+    text2: " you're solving, ",
+    highlight2: "outcomes",
+    text3: " you need, and ",
+    highlight3: "metrics that define success",
+    text4: ". Then I design user-centered interfaces that balance speed with strategic thinking so you move fast without sacrificing quality."
+  },
+  section4: {
+    text1: "I've helped Questrade launch products that achieved results as: Increase assets under management by ",
+    highlight1: "$126M",
+    text2: "; A ",
+    highlight2: "2.6%",
+    text3: " increase in new accounts opened due to a ",
+    highlight3: "34%",
+    text4: " growth in one button conversion; Enhance onboarding conversion rates by ",
+    highlight4: "14%",
+    text5: "."
+  },
+  cta: "Let's Work Together! Send a message.",
+  servicesTitle: "Services"
+} : {
+  title: 'SERVIÇOS DE DESIGN',
+  section1: {
+    text1: "Startups de ritmo acelerado ",
+    highlight1: "não podem se dar ao luxo de design genérico",
+    text2: ", mas é exatamente isso que estão recebendo ",
+    highlight2: "custando-lhes",
+    text3: " usuários, receita e vantagem competitiva."
+  },
+  section2: {
+    text1: "Eu projeto produtos digitais estratégicos e diferenciados que convertem ",
+    highlight1: "trazendo clareza ao caos",
+    text2: " e transformando sua execução rápida em uma vantagem competitiva."
+  },
+  section3: {
+    text1: "Colaborando diretamente com sua equipe para alinhar o que importa: o ",
+    highlight1: "problema",
+    text2: " que você está resolvendo, os ",
+    highlight2: "resultados",
+    text3: " que você precisa, e as ",
+    highlight3: "métricas que definem sucesso",
+    text4: ". Então eu projeto interfaces centradas no usuário que equilibram velocidade com pensamento estratégico para você avançar rápido sem sacrificar qualidade."
+  },
+  section4: {
+    text1: "Eu ajudei a Questrade a lançar produtos que alcançaram resultados como: Aumento de ativos sob gestão em ",
+    highlight1: "$126M",
+    text2: "; Um aumento de ",
+    highlight2: "2,6%",
+    text3: " em novas contas abertas devido a um crescimento de ",
+    highlight3: "34%",
+    text4: " na conversão de um botão; Melhoria das taxas de conversão de onboarding em ",
+    highlight4: "14%",
+    text5: "."
+  },
+  cta: "Vamos Trabalhar Juntos! Envie uma mensagem.",
+  servicesTitle: "Serviços"
+};
 ---
 
-<BaseLayout title={lang === 'en' ? 'Freelance Services - Henrique Olson' : 'Serviços Freelance - Henrique Olson'}>
+<BaseLayout title={lang === 'en' ? 'Design Services - Henrique Olson' : 'Serviços de Design - Henrique Olson'}>
   <Header lang={lang} currentPath={lang === 'en' ? '/freelance' : '/pt/freelance'} />
 
-  <!-- Hero Section -->
+  <!-- Title Section -->
   <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto text-center">
-      <a href={getHref('/')} class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 font-proxima text-sm transition-colors">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        {freelance.backToHome}
-      </a>
-      <h1 class="font-druk text-4xl sm:text-5xl md:text-6xl mb-6">{freelance.title}</h1>
-      <p class="font-seravek text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-        {freelance.subtitle}
-      </p>
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="font-druk text-4xl sm:text-5xl md:text-6xl text-primary">{content.title}</h1>
     </div>
   </section>
 
-  <!-- Services Grid -->
+  <!-- Section 1: Text left, Image right -->
   <section class="py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 text-right">
+          <p class="font-seravek text-2xl text-foreground leading-relaxed">
+            {content.section1.text1}<span class="text-primary">{content.section1.highlight1}</span>{content.section1.text2}<span class="text-primary">{content.section1.highlight2}</span>{content.section1.text3}
+          </p>
+        </div>
+        <div class="order-1 lg:order-2 flex justify-center">
+          <div class="bg-card rounded-2xl p-8 max-w-md">
+            <img src="/images/freelance/illustration-1.svg" alt="Mobile devices illustration" class="w-full h-auto" onerror="this.style.display='none'" />
+            <!-- Fallback SVG illustration -->
+            <svg class="w-full h-auto" viewBox="0 0 300 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Phone 1 -->
+              <rect x="60" y="40" width="80" height="150" rx="8" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="70" y="60" width="60" height="8" rx="2" fill="#EBFC47" opacity="0.3"/>
+              <rect x="70" y="75" width="40" height="6" rx="2" fill="#EBFC47" opacity="0.3"/>
+              <rect x="70" y="90" width="60" height="50" rx="4" stroke="#EBFC47" stroke-width="1.5" fill="none"/>
+              <path d="M85 105 L95 120 L110 100 L125 125" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <!-- Phone 2 -->
+              <rect x="160" y="60" width="80" height="150" rx="8" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="170" y="80" width="60" height="8" rx="2" fill="#EBFC47" opacity="0.3"/>
+              <rect x="170" y="95" width="60" height="60" rx="4" stroke="#EBFC47" stroke-width="1.5" fill="none"/>
+              <!-- Bar chart -->
+              <rect x="180" y="130" width="12" height="20" fill="#EBFC47"/>
+              <rect x="197" y="115" width="12" height="35" fill="#EBFC47"/>
+              <rect x="214" y="105" width="12" height="45" fill="#EBFC47"/>
+              <!-- Decorative elements -->
+              <circle cx="45" cy="100" r="3" fill="#EBFC47"/>
+              <circle cx="255" cy="140" r="3" fill="#EBFC47"/>
+              <line x1="30" y1="180" x2="50" y2="180" stroke="#EBFC47" stroke-width="2"/>
+              <line x1="250" y1="80" x2="270" y2="80" stroke="#EBFC47" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Image left, Text right -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="flex justify-center">
+          <div class="bg-card rounded-2xl p-8 max-w-md">
+            <img src="/images/freelance/illustration-2.svg" alt="Analytics illustration" class="w-full h-auto" onerror="this.style.display='none'" />
+            <!-- Fallback SVG illustration -->
+            <svg class="w-full h-auto" viewBox="0 0 300 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Phone -->
+              <rect x="90" y="30" width="120" height="190" rx="12" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="105" y="55" width="90" height="10" rx="3" fill="#EBFC47" opacity="0.3"/>
+              <rect x="105" y="75" width="90" height="80" rx="6" stroke="#EBFC47" stroke-width="1.5" fill="none"/>
+              <!-- Chart inside phone -->
+              <path d="M115 140 L135 120 L155 130 L175 100 L185 110" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <circle cx="175" cy="100" r="4" fill="#EBFC47"/>
+              <!-- Bottom bars -->
+              <rect x="115" y="165" width="20" height="6" rx="2" fill="#EBFC47" opacity="0.5"/>
+              <rect x="140" y="165" width="30" height="6" rx="2" fill="#EBFC47" opacity="0.5"/>
+              <rect x="175" y="165" width="15" height="6" rx="2" fill="#EBFC47" opacity="0.5"/>
+              <!-- Side elements -->
+              <circle cx="60" cy="180" r="8" fill="#EBFC47"/>
+              <circle cx="240" cy="80" r="5" fill="#EBFC47"/>
+              <!-- Decorative lines -->
+              <line x1="40" y1="100" x2="70" y2="100" stroke="#EBFC47" stroke-width="2"/>
+              <line x1="230" y1="150" x2="260" y2="150" stroke="#EBFC47" stroke-width="2"/>
+              <!-- Arrow up -->
+              <path d="M250 200 L250 170 M240 180 L250 170 L260 180" stroke="#EBFC47" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-left">
+          <p class="font-seravek text-2xl text-foreground leading-relaxed">
+            {content.section2.text1}<span class="text-primary">{content.section2.highlight1}</span>{content.section2.text2}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Text left, Image right -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 text-right">
+          <p class="font-seravek text-2xl text-foreground leading-relaxed">
+            {content.section3.text1}<span class="text-primary">{content.section3.highlight1}</span>{content.section3.text2}<span class="text-primary">{content.section3.highlight2}</span>{content.section3.text3}<span class="text-primary">{content.section3.highlight3}</span>{content.section3.text4}
+          </p>
+        </div>
+        <div class="order-1 lg:order-2 flex justify-center">
+          <div class="bg-card rounded-2xl p-8 max-w-md">
+            <img src="/images/freelance/illustration-3.svg" alt="Process flow illustration" class="w-full h-auto" onerror="this.style.display='none'" />
+            <!-- Fallback SVG illustration -->
+            <svg class="w-full h-auto" viewBox="0 0 300 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Flow diagram -->
+              <!-- Card 1 -->
+              <rect x="40" y="30" width="70" height="50" rx="6" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="50" y="45" width="50" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <rect x="50" y="55" width="35" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <circle cx="95" cy="55" r="8" fill="#EBFC47"/>
+              <!-- Card 2 -->
+              <rect x="180" y="30" width="70" height="50" rx="6" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="190" y="45" width="50" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <rect x="190" y="55" width="35" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <!-- Connection line -->
+              <path d="M110 55 L180 55" stroke="#EBFC47" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <!-- Card 3 -->
+              <rect x="40" y="100" width="70" height="50" rx="6" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="50" y="115" width="50" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <rect x="50" y="125" width="35" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <!-- Card 4 -->
+              <rect x="180" y="100" width="70" height="50" rx="6" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <rect x="190" y="115" width="50" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <rect x="190" y="125" width="35" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <circle cx="235" cy="125" r="8" fill="#EBFC47"/>
+              <!-- More connections -->
+              <path d="M75 80 L75 100" stroke="#EBFC47" stroke-width="1.5"/>
+              <path d="M215 80 L215 100" stroke="#EBFC47" stroke-width="1.5"/>
+              <path d="M110 125 L180 125" stroke="#EBFC47" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <!-- Bottom section -->
+              <rect x="110" y="170" width="80" height="50" rx="6" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <circle cx="130" cy="195" r="10" fill="#EBFC47"/>
+              <rect x="150" y="188" width="30" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <rect x="150" y="198" width="20" height="4" rx="1" fill="#EBFC47" opacity="0.5"/>
+              <!-- Arrow down -->
+              <path d="M150 150 L150 170" stroke="#EBFC47" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Image left, Text right -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="flex justify-center">
+          <div class="bg-card rounded-2xl p-8 max-w-md">
+            <img src="/images/freelance/illustration-4.svg" alt="Results illustration" class="w-full h-auto" onerror="this.style.display='none'" />
+            <!-- Fallback SVG illustration -->
+            <svg class="w-full h-auto" viewBox="0 0 300 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Dashboard frame -->
+              <rect x="50" y="40" width="200" height="160" rx="8" stroke="#EBFC47" stroke-width="2" fill="none"/>
+              <!-- Header -->
+              <rect x="60" y="50" width="80" height="8" rx="2" fill="#EBFC47" opacity="0.3"/>
+              <!-- Chart area -->
+              <rect x="60" y="70" width="130" height="80" rx="4" stroke="#EBFC47" stroke-width="1" fill="none"/>
+              <!-- Bar chart -->
+              <rect x="75" y="120" width="18" height="25" fill="#EBFC47" opacity="0.7"/>
+              <rect x="100" y="100" width="18" height="45" fill="#EBFC47" opacity="0.7"/>
+              <rect x="125" y="85" width="18" height="60" fill="#EBFC47"/>
+              <rect x="150" y="95" width="18" height="50" fill="#EBFC47" opacity="0.7"/>
+              <!-- Side panel -->
+              <rect x="200" y="70" width="40" height="20" rx="3" fill="#EBFC47" opacity="0.3"/>
+              <rect x="200" y="95" width="40" height="20" rx="3" fill="#EBFC47" opacity="0.3"/>
+              <rect x="200" y="120" width="40" height="20" rx="3" fill="#EBFC47" opacity="0.3"/>
+              <!-- Growth arrow -->
+              <path d="M70 165 L100 165" stroke="#EBFC47" stroke-width="2"/>
+              <path d="M115 175 L115 155 M105 165 L115 155 L125 165" stroke="#EBFC47" stroke-width="2.5" fill="none"/>
+              <!-- Decorative elements -->
+              <circle cx="30" cy="120" r="4" fill="#EBFC47"/>
+              <circle cx="270" cy="80" r="4" fill="#EBFC47"/>
+              <line x1="260" y1="180" x2="280" y2="180" stroke="#EBFC47" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="text-left">
+          <p class="font-seravek text-2xl text-foreground leading-relaxed">
+            {content.section4.text1}<span class="text-primary">{content.section4.highlight1}</span>{content.section4.text2}<span class="text-primary">{content.section4.highlight2}</span>{content.section4.text3}<span class="text-primary">{content.section4.highlight3}</span>{content.section4.text4}<span class="text-primary">{content.section4.highlight4}</span>{content.section4.text5}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Button -->
+  <section class="py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <a href={`${getHref('/')}#contact`} class="block w-full btn-primary py-4 text-center font-proxima text-lg">
+        {content.cta}
+        <svg class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-seravek text-3xl sm:text-4xl mb-12 text-center">{content.servicesTitle}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {servicesList.map((service) => (
           <div class="card p-8">
@@ -128,10 +370,10 @@ const processSteps = lang === 'en' ? [
               )}
             </div>
             <h3 class="font-proxima text-xl mb-4">{service.title}</h3>
-            <p class="font-seravek text-muted-foreground text-sm mb-6">{service.description}</p>
+            <p class="font-seravek text-muted-foreground text-base mb-6">{service.description}</p>
             <ul class="space-y-2">
               {service.bullets.map((bullet) => (
-                <li class="flex items-center gap-2 text-sm text-muted-foreground font-seravek">
+                <li class="flex items-center gap-2 text-base text-muted-foreground font-seravek">
                   <div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
                   {bullet}
                 </li>
@@ -139,49 +381,6 @@ const processSteps = lang === 'en' ? [
             </ul>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Process Section -->
-  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-section">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="font-seravek text-3xl sm:text-4xl mb-12 text-center">
-        {lang === 'en' ? 'How I Work' : 'Como Eu Trabalho'}
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        {processSteps.map((step) => (
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-primary text-primary-foreground mx-auto mb-4 flex items-center justify-center font-druk text-2xl">{step.num}</div>
-            <h3 class="font-proxima text-lg mb-2">{step.title}</h3>
-            <p class="font-seravek text-sm text-muted-foreground">{step.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-24 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="font-seravek text-3xl sm:text-4xl mb-6">
-        {lang === 'en' ? 'Ready to Start a Project?' : 'Pronto para Iniciar um Projeto?'}
-      </h2>
-      <p class="font-proxima text-muted-foreground mb-8">
-        {lang === 'en'
-          ? "Let's collaborate to transform your ideas into exceptional digital experiences."
-          : "Vamos colaborar para transformar suas ideias em experiências digitais excepcionais."}
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="btn-primary font-proxima inline-flex items-center gap-2">
-          {lang === 'en' ? "Let's Connect on LinkedIn" : "Vamos Conectar no LinkedIn"}
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-        <a href={`${getHref('/')}#portfolio`} class="btn-secondary font-proxima">
-          {lang === 'en' ? 'View My Work' : 'Ver Meu Trabalho'}
-        </a>
       </div>
     </div>
   </section>

@@ -45,32 +45,32 @@ export const translations = {
       uxDesign: {
         title: 'UX Design',
         description: "By understanding user needs and business goals, I map users' journeys to create seamless and intuitive workflows, optimizing usability and reducing friction—turning complex problems into clear, effective solutions.",
-        bullets: ['User journey mapping', 'Wireframing & prototyping', 'Information architecture', 'Usability optimization'],
+        bullets: ['User Journey Mapping', 'Information Architecture', 'Wireframing', 'Usability Optimization'],
       },
       uiDesign: {
         title: 'UI & Interaction Design',
         description: 'Transform drafts into polished, high-performing interfaces that create a sense of responsiveness and effortlessness, ensuring scalable and engaging natural experiences.',
-        bullets: ['Visual design systems', 'Component libraries', 'Micro-interactions', 'Responsive design'],
+        bullets: ['Visual Design', 'Interactive Prototypes', 'Design Systems', 'Micro-interactions'],
       },
       uxResearch: {
         title: 'UX Research',
-        description: 'Conduct qualitative and quantitative research to understand user behaviors, needs, and motivations through observation techniques, task analysis, and feedback methodologies.',
-        bullets: ['User interviews', 'Usability testing', 'Competitive analysis', 'Survey design'],
+        description: 'Uncover user behaviors, needs, and pain points transforming insights into strategic design decisions that enhance usability.',
+        bullets: ['User Interviews', 'Behavioral Analysis', 'Usability Testing', 'Data-driven Insights'],
       },
       productDiscovery: {
         title: 'Product Discovery',
         description: 'Validate ideas early by identifying opportunities, defining user problems, and aligning solutions with business goals—ensuring a strong foundation before development.',
-        bullets: ['Opportunity assessment', 'Problem definition', 'Solution validation', 'Strategic alignment'],
+        bullets: ['Opportunity Assessment', 'Problem Definition', 'Solution Validation', 'Strategic Alignment'],
       },
       userTesting: {
         title: 'User Testing',
         description: 'Reduce guesswork by testing real user interactions, uncovering friction points, and refining the experience—leading to a more intuitive and high-performing product.',
-        bullets: ['Usability testing', 'A/B testing', 'User feedback', 'Performance optimization'],
+        bullets: ['Usability Testing', 'A/B Testing', 'User Feedback', 'Performance Optimization'],
       },
       productStrategy: {
         title: 'Product Strategy',
         description: 'Define clear product vision and roadmap aligned with business objectives and user needs.',
-        bullets: ['Strategic planning', 'Roadmap development', 'Goal alignment', 'Success metrics'],
+        bullets: ['Strategic Planning', 'Roadmap Development', 'Goal Alignment', 'Success Metrics'],
       },
     },
     testimonials: {
