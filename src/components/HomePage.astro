@@ -57,8 +57,38 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- Portfolio Section -->
   <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 bg-section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{portfolio.title}</h2>
+        <p class="font-proxima text-muted-foreground max-w-2xl mx-auto text-[18px]">
+          {portfolio.description}
+          {' '}{portfolio.passwordProtected} <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{portfolio.reachOut}</a>
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            displayTitle={project.data.displayTitle}
+            titleColor={project.data.titleColor}
+            client={project.data.client}
+            description={project.data.cardDescription}
+            badges={project.data.badges}
+            slug={project.slug}
+            image={project.data.cardImage}
+            passwordProtected={project.data.passwordProtected}
+            comingSoon={project.data.comingSoon}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="portfolio" class="py-24 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
@@ -85,36 +115,6 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
             class="w-full max-w-md rounded-lg grayscale"
           />
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio Section -->
-  <section id="portfolio" class="py-24 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{portfolio.title}</h2>
-        <p class="font-proxima text-muted-foreground max-w-2xl mx-auto text-[18px]">
-          {portfolio.description}
-          {' '}{portfolio.passwordProtected} <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{portfolio.reachOut}</a>
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            displayTitle={project.data.displayTitle}
-            titleColor={project.data.titleColor}
-            client={project.data.client}
-            description={project.data.cardDescription}
-            badges={project.data.badges}
-            slug={project.slug}
-            image={project.data.cardImage}
-            passwordProtected={project.data.passwordProtected}
-            comingSoon={project.data.comingSoon}
-            lang={lang}
-          />
-        ))}
       </div>
     </div>
   </section>
