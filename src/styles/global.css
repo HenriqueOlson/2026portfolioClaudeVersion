@@ -195,9 +195,13 @@
   }
 
   .card:hover {
-    border-color: var(--muted-foreground);
+    border-color: var(--card-hover-stroke, var(--muted-foreground));
     transform: scale(1.02);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  .random-stroke-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 0 20px color-mix(in srgb, var(--card-hover-stroke, var(--gradient-start)) 24%, transparent);
   }
 
   /* Navigation */

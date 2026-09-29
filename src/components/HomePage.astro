@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
+import HeroVisual from './HeroVisual.astro';
 import Footer from './Footer.astro';
 import ProjectCard from './ProjectCard.astro';
 import Badge from './Badge.astro';
 import { getCollection } from 'astro:content';
 import type { Language } from '../i18n/translations';
-import { useTranslations, getLocalizedPath } from '../i18n/translations';
+import { useTranslations } from '../i18n/translations';
 
 interface Props {
   lang: Language;
@@ -17,12 +18,8 @@ const t = useTranslations(lang);
 const hero = t('hero');
 const about = t('about');
 const portfolio = t('portfolio');
-const services = t('services');
 const testimonials = t('testimonials');
 const contact = t('contact');
-
-// Helper to get localized href
-const getHref = (path: string) => getLocalizedPath(path, lang);
 
 // Get all projects and sort by order
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
@@ -32,28 +29,37 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <Header lang={lang} currentPath={lang === 'en' ? '/' : '/pt/'} />
 
   <!-- Hero Section -->
-  <section class="h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
-    <div class="text-center max-w-4xl mx-auto">
-      <span class="availability-badge inline-block mb-8 font-proxima text-sm">
-        {hero.availability}
-      </span>
-      <h1 class="font-druk text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6">
-        {hero.name}
-      </h1>
-      <p class="font-seravek text-lg sm:text-xl text-muted-foreground mb-8">
-        {hero.tagline}
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#services" class="btn-primary font-proxima inline-flex items-center gap-2">
-          {hero.freelanceServices}
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-        <a href="#portfolio" class="btn-secondary font-proxima">
-          {hero.viewPortfolio}
-        </a>
+  <section class="relative isolate overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+    <div aria-hidden="true" class="pointer-events-none absolute -right-48 top-1/2 -z-10 h-[38rem] w-[38rem] -translate-y-1/2 rounded-full bg-[#8B5CF6]/[0.09] blur-3xl"></div>
+    <div class="mx-auto grid min-h-[min(76vh,52rem)] max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+      <div class="max-w-2xl">
+        <span class="availability-badge inline-flex font-proxima text-sm">
+          {hero.availability}
+        </span>
+        <p class="mt-8 font-proxima text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">
+          {hero.name}<span class="mx-2 text-primary" aria-hidden="true">/</span>{hero.role}
+        </p>
+        <h1 class="mt-5 font-druk text-[clamp(3.25rem,6.5vw,6.5rem)] leading-[0.88] tracking-[-0.035em]">
+          <span class="block">{hero.headlineLead}</span>
+          <span class="mt-2 block text-[#B794F6]">{hero.headlineAccent}</span>
+        </h1>
+        <p class="mt-7 max-w-xl font-seravek text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          {hero.tagline}
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a href="#portfolio" class="btn-primary font-proxima inline-flex items-center justify-center gap-2">
+            {hero.viewPortfolio}
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+          <a href="#contact" class="btn-secondary font-proxima inline-flex items-center justify-center">
+            {hero.contactMe}
+          </a>
+        </div>
       </div>
+
+      <HeroVisual />
     </div>
   </section>
 
@@ -96,12 +102,14 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
           <p class="font-proxima text-lg leading-relaxed mb-6 text-muted-foreground">
             {about.paragraph1}
           </p>
-          <p class="font-proxima text-lg leading-relaxed mb-8 text-muted-foreground">
+          <p class="font-proxima text-lg leading-relaxed mb-6 text-muted-foreground">
             {about.paragraph2}
+          </p>
+          <p class="font-proxima text-lg leading-relaxed mb-8 text-muted-foreground">
+            {about.paragraph3}
           </p>
           <div class="flex flex-wrap gap-3">
             <Badge variant="gradient">{about.badge1}</Badge>
-            <Badge variant="gradient">{about.badge2}</Badge>
             <Badge variant="gradient">{about.badge3}</Badge>
             <Badge variant="gradient">{about.badge4}</Badge>
             <Badge variant="gradient">{about.badge5}</Badge>
@@ -109,76 +117,12 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
           </div>
         </div>
         <div class="flex justify-center lg:justify-end">
-          <img
-            src="/images/projects/4bc393f70f4b66d7696b1aac6c4705f76410178e.png"
-            alt="Henrique Olson"
-            class="w-full max-w-md rounded-lg grayscale"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="py-24 px-4 sm:px-6 lg:px-8 bg-section">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="font-seravek text-3xl sm:text-4xl mb-4">{services.title}</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- UX Design -->
-        <div class="card p-8 flex flex-col">
-          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-            <!-- Eye icon -->
-            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="3" />
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
-            </svg>
-          </div>
-          <h3 class="font-proxima text-[24px] font-semibold mb-4">{services.uxDesign.title}</h3>
-          <p class="font-seravek text-muted-foreground text-[18px] leading-relaxed">
-            {services.uxDesign.description}
-          </p>
-        </div>
-
-        <!-- UI & Interaction Design -->
-        <div class="card p-8 flex flex-col">
-          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-            <!-- Creative/Design icon -->
-            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <h3 class="font-proxima text-[24px] font-semibold mb-4">{services.uiDesign.title}</h3>
-          <p class="font-seravek text-muted-foreground text-[18px] leading-relaxed">
-            {services.uiDesign.description}
-          </p>
-        </div>
-
-        <!-- Ready to Start -->
-        <div class="card p-8 flex flex-col">
-          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-            <!-- Rocket/Check icon -->
-            <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4" />
-              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02" />
-            </svg>
-          </div>
-          <h3 class="font-proxima text-[24px] font-semibold mb-4">{lang === 'en' ? 'Ready to Start?' : 'Pronto para Começar?'}</h3>
-          <p class="font-seravek text-muted-foreground text-[18px] leading-relaxed mb-6">
-            {lang === 'en'
-              ? "Let's collaborate to transform your ideas into exceptional digital experiences. I'm here to help you create user-centered solutions that drive real business results."
-              : "Vamos colaborar para transformar suas ideias em experiências digitais excepcionais. Estou aqui para ajudá-lo a criar soluções centradas no usuário que geram resultados reais de negócios."}
-          </p>
-          <div class="mt-auto">
-            <a href="https://linkedin.com/in/henriqueolson" target="_blank" rel="noopener noreferrer" class="btn-primary font-proxima text-sm w-full block text-center">
-              {lang === 'en' ? "Let's Work Together! Send a message." : "Vamos Trabalhar Juntos! Envie uma mensagem."}
-            </a>
-            <a href={getHref('/freelance')} class="btn-secondary font-proxima text-sm w-full block text-center mt-3">
-              {lang === 'en' ? 'Learn more about services' : 'Saiba mais sobre os serviços'}
-            </a>
+          <div class="about-photo-frame w-full max-w-md">
+            <img
+              src="/images/henrique-about.jpg"
+              alt="Henrique walking his dog on the beach"
+              class="about-photo"
+            />
           </div>
         </div>
       </div>
@@ -196,7 +140,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {testimonials.items.map((item) => (
-          <div class="card p-6">
+          <div class="card random-stroke-card p-6">
             <div class="text-primary text-[32px] mb-2">"</div>
             <p class="font-seravek text-[16px] text-muted-foreground mb-4">
               {item.text}
@@ -255,3 +199,69 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
   <Footer lang={lang} />
 </BaseLayout>
+
+<script>
+  const hoverStrokeColors = ['var(--gradient-start)', 'var(--gradient-end)'];
+  const canHoverCards = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  document.querySelectorAll<HTMLElement>('.random-stroke-card').forEach((card) => {
+    let activeColor = -1;
+    let timer: number | undefined;
+
+    const changeStroke = () => {
+      const nextColor = activeColor === -1
+        ? Math.floor(Math.random() * hoverStrokeColors.length)
+        : Math.floor(Math.random() * hoverStrokeColors.length);
+      const distinctColor = nextColor === activeColor
+        ? (nextColor + 1) % hoverStrokeColors.length
+        : nextColor;
+      activeColor = distinctColor;
+      card.style.setProperty('--card-hover-stroke', hoverStrokeColors[distinctColor]);
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        timer = window.setTimeout(changeStroke, 850 + Math.random() * 950);
+      }
+    };
+
+    card.addEventListener('pointerenter', () => {
+      if (canHoverCards) changeStroke();
+    });
+
+    card.addEventListener('pointerleave', () => {
+      if (timer !== undefined) window.clearTimeout(timer);
+      timer = undefined;
+      activeColor = -1;
+      card.style.removeProperty('--card-hover-stroke');
+    });
+  });
+</script>
+
+<style>
+  .about-photo-frame {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgb(183 148 246 / 24%);
+    border-radius: 1rem;
+    background: #17151d;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 24%), 0 0 32px rgb(139 92 246 / 7%);
+  }
+
+  .about-photo-frame::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(155deg, rgb(139 92 246 / 9%), transparent 48%, rgb(18 15 26 / 12%));
+    content: '';
+    pointer-events: none;
+  }
+
+  .about-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 72%;
+    filter: saturate(.76) contrast(1.04) brightness(.88);
+    transform: scale(1.16);
+    transform-origin: center bottom;
+  }
+</style>

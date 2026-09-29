@@ -37,7 +37,6 @@ const getHref = (path: string) => getLocalizedPath(path, lang);
       <div class="hidden md:flex space-x-8 items-center">
         <a href={`${getHref('/')}#about`} class="nav-link font-proxima text-sm">{nav.about}</a>
         <a href={`${getHref('/')}#portfolio`} class="nav-link font-proxima text-sm">{nav.portfolio}</a>
-        <a href={`${getHref('/')}#services`} class="nav-link font-proxima text-sm">{nav.services}</a>
         <a href={`${getHref('/')}#contact`} class="nav-link font-proxima text-sm">{nav.contact}</a>
         <LanguageSelector client:load currentLang={lang} currentPath={currentPath} />
       </div>
